@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>GSA Web Clone</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+</head>
+<style type="text/css">
+#loader {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.75) url(images/loading2.gif) no-repeat center center;
+  z-index: 10000;
+}
+</style>
+<body>
+
+<div id="loader"></div>
+
+<div class="loader" id="overlay"></div>
+
+<div class="container mt-3 p-3">
+  <h2 class="text-center">Find Contact Forms</h2>
+
+  <form method="get" action="{% url 'search' %}">
+    <div class="form-group">
+      <label for="keyword">Keyword</label>
+      <input type="text" class="form-control" placeholder="Enter keyword to search" name="keyword" required>
+    </div>
+    <h6 id="msg" class="container border bg-light text-danger p-3">
+      we are only getting contact pages from first 5 results of google just for testing and to do it faster in testing.
+    </h6>
+    <button type="submit" class="btn btn-primary mt-2 text-center" id="btnSubmit">Find Now</button>
+  </form>
+</div>
+
+{% if links %}
+    <div class="container rounded mt-3 border p-3">
+      <h4>Results:</h4>
+      <ol>
+        {% for link in links %}
+            <li><a href='{{link}}'>{{link}}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+{% endif %}
+
+
+<script>
+  $("#btnSubmit").click(function(){
+    document.getElementById('msg').innerHTML = "It will take 2 to 3 minutes to check first 5 sites map from chrome. Or depending on your internet";
+})
+</script>
+</body>
+</html>
